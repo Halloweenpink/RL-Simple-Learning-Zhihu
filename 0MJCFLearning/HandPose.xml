@@ -1,0 +1,153 @@
+<mujoco model="simple_human_hand">
+  <compiler angle="radian" autolimits="true" coordinate="local"/>
+  <option gravity="0 0 -9.81"/>
+
+  <default>
+    <joint limited="true" damping="0.1"/>
+    <geom type="capsule" density="500" friction="1 0.1 0.1"/>
+  </default>
+
+  <worldbody>
+    <!-- 手掌：一个 box，中心在原点 -->
+    <body name="palm" pos="0 0 0">
+      <geom name="palm_geom" type="box" size="0.035 0.05 0.01" rgba="1.0 0.82 0.70 1" contype="0" conaffinity="0"/>
+
+      <!-- ========= 四根手指：index, middle, ring, little ========= -->
+      <!-- 指根在手掌前缘 y=0.05 上，沿 x 分布 -->
+
+      <!-- = 食指 index finger = -->
+      <body name="index_base" pos="0.03 0.05 0">
+        <!-- 近节关节：绕 x 轴弯曲，0~90度 -->
+        <joint name="index_j1" type="hinge" axis="1 0 0" range="0 1.57"/>
+        <!-- 近节几何：从 (0,0,0) 指向 +y -->
+        <geom name="index_ph1" fromto="0 0 0  0 0.045 0" size="0.008"/>
+
+        <body name="index_mid" pos="0 0.045 0">
+          <joint name="index_j2" type="hinge" axis="1 0 0" range="0 1.57"/>
+          <geom name="index_ph2" fromto="0 0 0  0 0.03 0" size="0.0075"/>
+
+          <body name="index_tip" pos="0 0.03 0">
+            <joint name="index_j3" type="hinge" axis="1 0 0" range="0 1.57"/>
+            <geom name="index_ph3" fromto="0 0 0  0 0.025 0" size="0.007"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- = 中指 middle finger = -->
+      <body name="middle_base" pos="0.01 0.055 0">
+        <joint name="middle_j1" type="hinge" axis="1 0 0" range="0 1.57"/>
+        <geom name="middle_ph1" fromto="0 0 0  0 0.045 0" size="0.008"/>
+
+        <body name="middle_mid" pos="0 0.045 0">
+          <joint name="middle_j2" type="hinge" axis="1 0 0" range="0 1.57"/>
+          <geom name="middle_ph2" fromto="0 0 0  0 0.03 0" size="0.0075"/>
+
+          <body name="middle_tip" pos="0 0.03 0">
+            <joint name="middle_j3" type="hinge" axis="1 0 0" range="0 1.57"/>
+            <geom name="middle_ph3" fromto="0 0 0  0 0.03 0" size="0.007"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- = 无名指 ring finger = -->
+      <body name="ring_base" pos="-0.01 0.05 0">
+        <joint name="ring_j1" type="hinge" axis="1 0 0" range="0 1.57"/>
+        <geom name="ring_ph1" fromto="0 0 0  0 0.045 0" size="0.008"/>
+
+        <body name="ring_mid" pos="0 0.045 0">
+          <joint name="ring_j2" type="hinge" axis="1 0 0" range="0 1.57"/>
+          <geom name="ring_ph2" fromto="0 0 0  0 0.03 0" size="0.0075"/>
+
+          <body name="ring_tip" pos="0 0.03 0">
+            <joint name="ring_j3" type="hinge" axis="1 0 0" range="0 1.57"/>
+            <geom name="ring_ph3" fromto="0 0 0  0 0.025 0" size="0.007"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- = 小指 little finger = -->
+      <body name="little_base" pos="-0.03 0.045 0">
+        <joint name="little_j1" type="hinge" axis="1 0 0" range="0 1.57"/>
+        <geom name="little_ph1" fromto="0 0 0  0 0.03 0" size="0.0075"/>
+
+        <body name="little_mid" pos="0 0.04 0">
+          <joint name="little_j2" type="hinge" axis="1 0 0" range="0 1.57"/>
+          <geom name="little_ph2" fromto="0 0 0  0 0.02 0" size="0.007"/>
+
+          <body name="little_tip" pos="0 0.028 0">
+            <joint name="little_j3" type="hinge" axis="1 0 0" range="0 1.57"/>
+            <geom name="little_ph3" fromto="0 0 0  0 0.02 0" size="0.0065"/>
+          </body>
+        </body>
+      </body>
+
+
+      <!-- ========= 大拇指 thumb（主动双自由度） ========= -->
+
+      <!-- 拇指根位置（基于你原来 pos） -->
+      <body name="thumb_root" pos="0.035 -0.02 0.005">
+
+        <inertial pos="0 0 0" mass="0.005" diaginertia="1e-5 1e-5 1e-5"/>
+
+        <!-- DOF 1：拇指根（绕 y 轴） -->
+        <joint name="thumb_flex" type="hinge" axis="0 -1 0" range="0 2"/>
+
+        <!-- 再套一层，用第二个 hinge 控制弯曲 -->
+        <body name="thumb_base" pos="0 0 0">
+
+          <!-- DOF 2：拇指（绕 z 轴） -->
+          <joint name="thumb_abd" type="hinge" axis="0 0 1" range="0 1.57"/>
+
+          <!-- 第一节（原来的 thumb_ph1） -->
+          <geom name="thumb_root_geom" type="box" size="0.015 0.02 0.01" rgba="0.8 0.7 0.6 1"/>
+          <!-- 第二节 -->
+          <body name="thumb_mid" pos="0.015 0 0">
+            <!-- 弯曲 DIP（保持 1 DoF） -->
+            <joint name="thumb_tip_flex" type="hinge" axis="0 -1 0" range="0 1.57"/>
+            <geom name="thumb_ph2" fromto="0 0 0  0.03 0 0" size="0.0085"/>
+
+            <!-- 第三节（可选，如你原始结构有） -->
+            <body name="thumb_tip" pos="0.03 0 0">
+              <joint name="thumb_tip2_flex" type="hinge" axis="0 -1 0" range="0 1.57"/>
+              <geom name="thumb_ph3" fromto="0 0 0  0.025 0 0" size="0.008"/>
+            </body>
+          </body>
+
+        </body>
+      </body>
+
+    </body>
+  </worldbody>
+
+  <!-- ========= 每个关节一个 position actuator ========= -->
+  <actuator>
+    <!-- index -->
+    <position name="act_index_j1" joint="index_j1" kp="50" ctrlrange="0 1.57"/>
+    <position name="act_index_j2" joint="index_j2" kp="50" ctrlrange="0 1.57"/>
+    <position name="act_index_j3" joint="index_j3" kp="50" ctrlrange="0 1.57"/>
+
+    <!-- middle -->
+    <position name="act_middle_j1" joint="middle_j1" kp="50" ctrlrange="0 1.57"/>
+    <position name="act_middle_j2" joint="middle_j2" kp="50" ctrlrange="0 1.57"/>
+    <position name="act_middle_j3" joint="middle_j3" kp="50" ctrlrange="0 1.57"/>
+
+    <!-- ring -->
+    <position name="act_ring_j1" joint="ring_j1" kp="50" ctrlrange="0 1.57"/>
+    <position name="act_ring_j2" joint="ring_j2" kp="50" ctrlrange="0 1.57"/>
+    <position name="act_ring_j3" joint="ring_j3" kp="50" ctrlrange="0 1.57"/>
+
+    <!-- little -->
+    <position name="act_little_j1" joint="little_j1" kp="50" ctrlrange="0 1.57"/>
+    <position name="act_little_j2" joint="little_j2" kp="50" ctrlrange="0 1.57"/>
+    <position name="act_little_j3" joint="little_j3" kp="50" ctrlrange="0 1.57"/>
+
+    <!-- thumb actuators：两个主动自由度 -->
+    <position name="act_thumb_abd" joint="thumb_abd"  kp="50" ctrlrange="0 1.57"/>
+    <position name="act_thumb_flex" joint="thumb_flex" kp="50" ctrlrange="0 2"/>
+
+    <!-- 拇指 distal joints -->
+    <position name="act_thumb_tip_flex"  joint="thumb_tip_flex"  kp="50" ctrlrange="0 1.57"/>
+    <position name="act_thumb_tip2_flex" joint="thumb_tip2_flex" kp="50" ctrlrange="0 1.57"/>
+
+  </actuator>
+</mujoco>

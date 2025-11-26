@@ -1,0 +1,21 @@
+Fri Nov 14 21:09:05 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 8. The simulation is unstable. Time = 118.3680.
+
+Sat Nov 15 00:39:54 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 8. The simulation is unstable. Time = 93.5400.
+
+Sat Nov 15 01:41:55 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 8. The simulation is unstable. Time = 2151.2800.
+
+Sat Nov 15 04:04:44 2025
+WARNING: mju_openResource: unknown file 'hand.xml'
+
+Sat Nov 15 04:39:48 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 5. The simulation is unstable. Time = 1.9920.
+
+Sat Nov 15 13:40:33 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 15. The simulation is unstable. Time = 0.2880.
+
+Sat Nov 15 13:49:52 2025
+WARNING: Nan, Inf or huge value in QACC at DOF 15. The simulation is unstable. Time = 4.3220.
+

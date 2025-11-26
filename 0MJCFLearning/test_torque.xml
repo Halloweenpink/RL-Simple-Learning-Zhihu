@@ -1,0 +1,77 @@
+<mujoco model="simple_hand">
+  <compiler angle="degree" autolimits="true"/>
+
+  <option timestep="0.002"/>
+
+  <worldbody>
+    <!-- 手掌 -->
+    <body name="palm" pos="-0.3 0 0">
+      <geom type="box" size="0.08 0.05 0.01" rgba="0.7 0.7 0.7 1"/>
+
+
+      <body name="0" pos="0 0.04 0">
+        <joint name="0" type="hinge" axis="0 1 0" range="-90 90"/>
+        <geom type="capsule" size="0.005 " fromto="0 0 0 0 0.1 0.1" rgba="1 0.5 0 1"/>
+      </body>
+
+      <body name="1" pos="0.08 0.04 0">
+        <joint name="1" type="hinge" axis="0 1 0" range="-90 90"/>
+        <geom type="capsule" size="0.005 " fromto="0 0 0 0 0.1 0.1" rgba="1 0.5 0 1"/>
+      </body>
+
+      <body name="2" pos="-0.08 0 0">
+        <joint name="2" type="hinge" axis="0 1 0" range="-90 90"/>
+        <geom type="capsule" size="0.005 " fromto="0 0 0 0 0.1 0.1" rgba="1 0.5 0 1"/>
+      </body>
+    </body>
+
+    <body name="palm1" pos="0 0 0">
+      <geom type="box" size="0.08 0.05 0.01" rgba="1 1 1 1"/>
+
+
+      <body name="0_1" pos="0 0.04 0">
+        <joint name="0_1" type="hinge" axis="1 0 0" range="-90 90"/>
+        <geom type="capsule" size="0.005 " fromto="0 0 0 0 0.1 0.1" rgba="1 0.5 0 1"/>
+      </body>
+
+      <body name="1_1" pos="0.08 0.04 0">
+        <joint name="1_1" type="hinge" axis="1 1 0" range="-90 90"/>
+        <geom type="capsule" size="0.005 " fromto="0 0 0 0 0.1 0.1" rgba="1 0.5 0 1"/>
+      </body>
+
+      <body name="2_1" pos="-0.08 0 0">
+        <joint name="2_1" type="hinge" axis="1 1 0" range="-90 90"/>
+        <geom type="capsule" size="0.005 " fromto="0 0 0 0 0.1 0.1" rgba="1 0.5 0 1"/>
+      </body>
+    </body>
+
+    <body name="palm2" pos="0.3 0 0">
+      <geom type="box" size="0.08 0.05 0.01" rgba="0.8 0.4 0.7 1" contype="0" conaffinity="0"/>
+
+
+      <body name="0_2" pos="0 0.04 0">
+        <joint name="0_2" type="hinge" axis="0 0 1" range="-90 90"/>
+        <geom type="capsule" size="0.005 " fromto="0 0 0 0 0.1 0.1" rgba="1 0.5 0 1"/>
+      </body>
+
+      <body name="1_2" pos="0.08 0.04 0">
+        <joint name="1_2" type="hinge" axis="0 0 1" range="-90 90"/>
+        <geom type="capsule" size="0.005 " fromto="0 0 0 0 0.1 0.1" rgba="1 0.5 0 1"/>
+      </body>
+
+      <body name="2_2" pos="-0.08 0 0">
+        <joint name="2_2" type="hinge" axis="0 0 1" range="-90 90"/>
+        <geom type="capsule" size="0.005 " fromto="0 0 0 0 0.1 0.1" rgba="1 0.5 0 1"/>
+      </body>
+
+
+    </body>
+  </worldbody>
+
+  <actuator>
+    <!-- 为每个关节添加 motor -->
+<!--    <motor joint="f1_j1" ctrlrange="0 1"/>-->
+
+  </actuator>
+
+</mujoco>
